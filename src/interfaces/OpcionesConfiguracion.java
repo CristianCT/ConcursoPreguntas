@@ -219,10 +219,14 @@ public class OpcionesConfiguracion extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        ConfiguracionPreguntas config = new ConfiguracionPreguntas(this.concurso.getRondas());
+        ConfiguracionPreguntas config = new ConfiguracionPreguntas(this);
         config.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public Concurso getConcurso(){
+        return this.concurso;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

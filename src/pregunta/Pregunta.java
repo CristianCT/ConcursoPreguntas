@@ -40,16 +40,4 @@ public class Pregunta {
     public void addRespuesta(Respuesta respuesta) {
         this.respuestas.add(respuesta);
     }
-    
-    private void addPreguntaDB(){
-        
-    }
-    
-    public void deletePreguntaDB(){
-        
-    }
-    
-    public void updatePreguntaDB(){
-        
-    }
 }

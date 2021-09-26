@@ -63,8 +63,4 @@ public class Concurso {
         this.conexion.connectionJugadores();
         return this.conexion.getHistorialJugadores();
     }
-    
-    /*public ArrayList<Pregunta> getPreguntas(){
-        this.conexion.connectionPreguntas();
-    }*/
 }

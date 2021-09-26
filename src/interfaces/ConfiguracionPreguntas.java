@@ -7,7 +7,10 @@ package interfaces;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import pregunta.Categoria;
 import pregunta.Pregunta;
+import pregunta.Respuesta;
 import ronda.Ronda;
 
 /**
@@ -19,14 +22,20 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
     /**
      * Creates new form ConfiguracionPreguntas
      */
-    ArrayList<Ronda> rondas;
-    DefaultListModel model;
-    public ConfiguracionPreguntas(ArrayList<Ronda> rondas) {
+    private ArrayList<Ronda> rondas;
+    private DefaultListModel model;
+    private int respuestaCorecta = 0;
+    private Pregunta pregunta;
+    private Categoria categoria;
+    private OpcionesConfiguracion opciones;
+    public ConfiguracionPreguntas(OpcionesConfiguracion opciones) {
         initComponents();
+        this.opciones = opciones;
+        this.rondas = this.opciones.getConcurso().getRondas();
+        this.jButton1.setEnabled(false);
         this.setDefaultCloseOperation(1);
         
         model = new DefaultListModel();
-        this.rondas = rondas;
         
         for(int x = 0; x < this.rondas.size() ; x++){
             for(int y = 0 ; y < this.rondas.get(x).getCategoria().getPreguntas().size() ; y++){
@@ -66,12 +75,11 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -105,6 +113,11 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
         jLabel2.setText("Nº. ");
 
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel3.setText("A. ");
@@ -119,10 +132,25 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
         jLabel6.setText("D.");
 
         jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
 
         jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +160,7 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -167,9 +196,6 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton2.setText("Modificar");
-
         jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Muy Facil", "Facil", "Normal", "Dificil", "Muy Dificil" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -177,9 +203,6 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-
-        jButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton3.setText("Eliminar");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Categoria:");
@@ -198,43 +221,38 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel4))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                                    .addComponent(jTextField2))))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField5)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jRadioButton2))
-                                        .addComponent(jRadioButton3)
-                                        .addComponent(jRadioButton4)))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jButton1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton3)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel3)
+                                                .addComponent(jLabel4))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                                .addComponent(jTextField2))))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField5)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jRadioButton2))
+                                    .addComponent(jRadioButton3)
+                                    .addComponent(jRadioButton4))
+                                .addGap(19, 19, 19))
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 12, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -273,14 +291,19 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jList1);
+
+        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton4.setText("Mostrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -293,7 +316,9 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -304,7 +329,11 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -313,6 +342,11 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
+        if(!this.jTextField1.getText().equals("") && !this.jTextField2.getText().equals("") && !this.jTextField3.getText().equals("") && !this.jTextField4.getText().equals("") && !this.jTextField5.getText().equals("") && !this.jComboBox1.getSelectedItem().toString().equals("...")){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
@@ -321,29 +355,135 @@ public class ConfiguracionPreguntas extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        if(!this.jTextField1.getText().equals("") && !this.jTextField2.getText().equals("") && !this.jTextField3.getText().equals("") && !this.jTextField4.getText().equals("") && !this.jTextField5.getText().equals("") && !this.jComboBox1.getSelectedItem().toString().equals("...")){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
+        if(this.jTextField1.getText() != "" && this.jTextField2.getText() != "" && this.jTextField3.getText() != "" && this.jTextField4.getText() != "" && this.jTextField5.getText() != "" && this.jComboBox1.getSelectedItem().toString() != "..."){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
+        if(this.jTextField1.getText() != "" && this.jTextField2.getText() != "" && this.jTextField3.getText() != "" && this.jTextField4.getText() != "" && this.jTextField5.getText() != "" && this.jComboBox1.getSelectedItem().toString() != "..."){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
+        if(this.jTextField1.getText() != "" && this.jTextField2.getText() != "" && this.jTextField3.getText() != "" && this.jTextField4.getText() != "" && this.jTextField5.getText() != "" && this.jComboBox1.getSelectedItem().toString() != "..."){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+            
+        this.opciones.getConcurso().getRondas().get(this.jComboBox1.getSelectedIndex()-1);
+        Pregunta pregunta = new Pregunta(this.jTextField1.getText(), this.rondas.get(this.jComboBox1.getSelectedIndex()-1).getCategoria());
+        Respuesta respuesta1 = new Respuesta(this.jTextField2.getText(),this.jRadioButton1.isSelected() , pregunta);
+        Respuesta respuesta2 = new Respuesta(this.jTextField3.getText(),this.jRadioButton2.isSelected() , pregunta);
+        Respuesta respuesta3 = new Respuesta(this.jTextField4.getText(),this.jRadioButton3.isSelected() , pregunta);
+        Respuesta respuesta4 = new Respuesta(this.jTextField5.getText(),this.jRadioButton4.isSelected() , pregunta);
+        
+        JOptionPane.showMessageDialog(null, "Pregunta Agregada");
+        this.setVisible(false);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        System.out.println();
+        if(this.jList1.getSelectedIndex() != -1){
+            this.createPregunta(this.jList1.getSelectedIndex());
+            this.jTextField1.setText(this.pregunta.getContenido());
+            this.jComboBox1.setSelectedIndex(this.pregunta.getCategoria().getDificultad());
+            this.jTextField2.setText(this.pregunta.getRespuestas().get(0).getContenido());
+            this.jTextField3.setText(this.pregunta.getRespuestas().get(1).getContenido());
+            this.jTextField4.setText(this.pregunta.getRespuestas().get(2).getContenido());
+            this.jTextField5.setText(this.pregunta.getRespuestas().get(3).getContenido());
+
+            if(this.pregunta.getRespuestas().get(0).isVerdadera()){
+                this.jRadioButton1.setSelected(true);
+            }
+            if(this.pregunta.getRespuestas().get(1).isVerdadera()){
+                this.jRadioButton2.setSelected(true);
+            }
+            if(this.pregunta.getRespuestas().get(2).isVerdadera()){
+                this.jRadioButton3.setSelected(true);
+            }
+            if(this.pregunta.getRespuestas().get(3).isVerdadera()){
+                this.jRadioButton4.setSelected(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe Seleccionar una pregunta");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+        if(!this.jTextField1.getText().equals("") && !this.jTextField2.getText().equals("") && !this.jTextField3.getText().equals("") && !this.jTextField4.getText().equals("") && !this.jTextField5.getText().equals("") && !this.jComboBox1.getSelectedItem().toString().equals("...")){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+        if(!this.jTextField1.getText().equals("") && !this.jTextField2.getText().equals("") && !this.jTextField3.getText().equals("") && !this.jTextField4.getText().equals("") && !this.jTextField5.getText().equals("") && !this.jComboBox1.getSelectedItem().toString().equals("...")){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+        if(!this.jTextField1.getText().equals("") && !this.jTextField2.getText().equals("") && !this.jTextField3.getText().equals("") && !this.jTextField4.getText().equals("") && !this.jTextField5.getText().equals("") && !this.jComboBox1.getSelectedItem().toString().equals("...")){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+        if(!this.jTextField1.getText().equals("") && !this.jTextField2.getText().equals("") && !this.jTextField3.getText().equals("") && !this.jTextField4.getText().equals("") && !this.jTextField5.getText().equals("") && !this.jComboBox1.getSelectedItem().toString().equals("...")){
+            this.jButton1.setEnabled(true);
+        } else {
+            this.jButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void createPregunta(int index){
+        int aux = 0;
+        for(int x = 0; x < this.rondas.size() ; x++){
+            for(int y = 0 ; y < this.rondas.get(x).getCategoria().getPreguntas().size() ; y++){
+                if(aux == index){
+                    this.pregunta = this.rondas.get(x).getCategoria().getPreguntas().get(y);
+                }
+                aux++;
+            }
+        }
+    } 
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
